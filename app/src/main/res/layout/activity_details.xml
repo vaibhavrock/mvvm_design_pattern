@@ -67,7 +67,7 @@
                         android:layout_marginTop="16dp"
                         android:isIndicator="true"
                         android:numStars="10"
-                        android:rating="0.0f"
+                        android:rating="0.0"
                         android:stepSize="0.1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -120,7 +120,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/guideline"
                         app:layout_constraintTop_toTopOf="@id/tvAddressTitleDetails"
-                        app:showWhenContactAvailable="@{venue}" />
+                         />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvPhoneNumberDetails"

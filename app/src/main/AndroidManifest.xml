@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mvvm_design_pattern">
         <activity
+            android:name=".view.ui.DetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.ui.MainActivity"
             android:exported="true">
             <intent-filter>
@@ -20,5 +23,7 @@
             </intent-filter>
         </activity>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

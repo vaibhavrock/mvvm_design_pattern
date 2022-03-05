@@ -10,8 +10,8 @@ interface ApiService {
         @GET("/v2/venues/search")
         fun searchVenues(
             @Query(ApiConstants.PARAM_NEAR) near: String,
-            @Query(ApiConstants.PARAM_RADUIS) radius: Int,
-            @Query(ApiConstants.PARAM_LIMIT) limit: Int
+            @Query(ApiConstants.PARAM_RADUIS) radius: String,
+            @Query(ApiConstants.PARAM_LIMIT) limit: String
         ): Call<Any>
 
         @GET("/v2/venues/{id}")
