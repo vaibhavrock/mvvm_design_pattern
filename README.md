@@ -1,4 +1,3 @@
 # mvvm_design_pattern
 
-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
 
