@@ -8,8 +8,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class VenueRepository {
-    val userResponseLiveData: MutableLiveData<Any> = MutableLiveData()
-
+    val venueListData: MutableLiveData<Any> = MutableLiveData()
+    val venueDetailsData: MutableLiveData<Any> = MutableLiveData()
+//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
     fun callVenueListAPI(near: String){
         MyApplication.apiService.searchVenues(near,ApiConstants.PARAM_RADUIS,ApiConstants.PARAM_LIMIT)
             .enqueue(object : Callback<Any?> {
@@ -18,14 +19,34 @@ class VenueRepository {
                     response: Response<Any?>
                 ) {
                     print("data: ${response.body()}")
-                    userResponseLiveData.postValue(response.body())
+                    venueListData.postValue(response.body())
                 }
 
                 override fun onFailure(call: Call<Any?>, t: Throwable) {
                     print("error:")
-                    userResponseLiveData.postValue(null)
+                    venueListData.postValue(null)
+                }
+            })
+    }
+
+    fun callVenueDetailsAPI(id: String){
+        MyApplication.apiService.getDetails(id)
+            .enqueue(object : Callback<Any?> {
+                override fun onResponse(
+                    call: Call<Any?>,
+                    response: Response<Any?>
+                ) {
+                    print("data: ${response.body()}")
+                    venueDetailsData.postValue(response.body())
+                }
+
+                override fun onFailure(call: Call<Any?>, t: Throwable) {
+                    print("error:")
+                    venueDetailsData.postValue(null)
                 }
             })
 
     }
+
+
 }

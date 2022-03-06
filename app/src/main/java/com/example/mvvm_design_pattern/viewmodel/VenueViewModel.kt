@@ -7,16 +7,22 @@ import com.example.mvvm_design_pattern.repository.VenueRepository
 
 class VenueViewModel(application: Application): AndroidViewModel(application) {
 
-    var usersListLiveData: LiveData<Any>?  = null
+    var venueListLiveData: LiveData<Any>?  = null
+    var venueDetailsLiveData: LiveData<Any>?  = null
     private var userRepository: VenueRepository? = null
 
     init {
         userRepository  = VenueRepository()
-        usersListLiveData = userRepository?.userResponseLiveData
+        venueListLiveData = userRepository?.venueListData
+        venueDetailsLiveData = userRepository?.venueDetailsData
     }
 
     fun getVenueList(near:String) {
         userRepository?.callVenueListAPI(near)
+    }
+
+    fun getVenueDetails(id:String) {
+        userRepository?.callVenueDetailsAPI(id)
     }
 
 }

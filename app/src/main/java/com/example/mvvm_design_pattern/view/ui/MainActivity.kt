@@ -40,7 +40,8 @@ class MainActivity : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable) {
                 val userInput = s.toString()
-                viewModel.getVenueList(userInput)
+                if(userInput.length >4)
+                 viewModel.getVenueList(userInput)
             }
 
             override fun beforeTextChanged(s: CharSequence, start: Int,
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
 
         // viewModel observer
-        viewModel.usersListLiveData?.observe(this) { response ->
+        viewModel.venueListLiveData?.observe(this) { response ->
             print("response: $response")
             if (response != null) {
                 // need to check

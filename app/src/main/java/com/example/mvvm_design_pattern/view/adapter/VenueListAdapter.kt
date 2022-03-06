@@ -1,10 +1,12 @@
 package com.example.mvvm_design_pattern.view.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvm_design_pattern.databinding.ListItemBinding
+import com.example.mvvm_design_pattern.view.ui.DetailActivity
 
 
 class VenueListAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
