@@ -12,7 +12,7 @@ class VenueRepository {
     val venueDetailsData: MutableLiveData<Any> = MutableLiveData()
 //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
     fun callVenueListAPI(near: String){
-        MyApplication.apiService.searchVenues(near,ApiConstants.PARAM_RADUIS,ApiConstants.PARAM_LIMIT)
+        MyApplication.apiService.searchVenues(near,ApiConstants.RADIUS_VALUE,ApiConstants.LIMIT_VALUE)
             .enqueue(object : Callback<Any?> {
                 override fun onResponse(
                     call: Call<Any?>,
