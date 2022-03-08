@@ -16,20 +16,20 @@ class MyApplication: Application() {
     }
 
     init {
-     /*   val client: OkHttpClient = OkHttpClient
+        val client: OkHttpClient = OkHttpClient
             .Builder()
-            .build()*/
+            .build()
 
-        val okHttpClient = OkHttpClient()
+     /*   val okHttpClient = OkHttpClient()
             .newBuilder()
             .addInterceptor(CredentialsInterceptor())
             .addInterceptor(VersionInterceptor())
-            .build()
+            .build()*/
 
 
         apiService= Retrofit.Builder()
             .baseUrl(ApiConstants.BASE_URL)
-            .client(okHttpClient)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService::class.java)

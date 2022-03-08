@@ -2,15 +2,18 @@ package com.example.mvvm_design_pattern.repository
 
 import androidx.lifecycle.MutableLiveData
 import com.example.mvvm_design_pattern.MyApplication
+import com.example.mvvm_design_pattern.model.ApiResponse
 import com.example.mvvm_design_pattern.network.ApiConstants
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class VenueRepository {
+    val userResponseLiveData: MutableLiveData<ApiResponse> = MutableLiveData()
     val venueListData: MutableLiveData<Any> = MutableLiveData()
     val venueDetailsData: MutableLiveData<Any> = MutableLiveData()
-//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
+
+    //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
     fun callVenueListAPI(near: String){
         MyApplication.apiService.searchVenues(near,ApiConstants.RADIUS_VALUE,ApiConstants.LIMIT_VALUE)
             .enqueue(object : Callback<Any?> {
@@ -43,6 +46,25 @@ class VenueRepository {
                 override fun onFailure(call: Call<Any?>, t: Throwable) {
                     print("error:")
                     venueDetailsData.postValue(null)
+                }
+            })
+
+    }
+
+    fun callUserListAPI(){
+        MyApplication.apiService.getUserList(20,"desc","reputation","stackoverflow")
+            .enqueue(object : Callback<ApiResponse?>{
+                override fun onResponse(
+                    call: Call<ApiResponse?>,
+                    response: Response<ApiResponse?>
+                ) {
+                    //print("data: ${response.body()}")
+                    userResponseLiveData.postValue(response.body())
+                }
+
+                override fun onFailure(call: Call<ApiResponse?>, t: Throwable) {
+                    //print("error:")
+                    userResponseLiveData.postValue(null)
                 }
             })
 

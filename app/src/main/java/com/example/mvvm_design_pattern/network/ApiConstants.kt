@@ -1,7 +1,7 @@
 package com.example.mvvm_design_pattern.network
 
 object ApiConstants {
-    const val BASE_URL = "https://api.foursquare.com"
+    const val BASE_URL = "https://api.stackexchange.com/"//"https://api.foursquare.com"
 
     // region Default request parameter values
     const val CLIENT_ID_VALUE = "SZUXEOI25ZI1QL1XLCA0T5YS0SWVB4J5ZDZGB5PUWJ1L4WJX"

@@ -1,13 +1,11 @@
 package com.example.mvvm_design_pattern.view.ui
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mvvm_design_pattern.databinding.ActivityMainBinding
-import com.example.mvvm_design_pattern.view.adapter.VenueListAdapter
+import com.example.mvvm_design_pattern.view.adapter.UsersAdapter
 import com.example.mvvm_design_pattern.viewmodel.VenueViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +17,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: VenueViewModel
 
     //Adapter
-    private var adapter: VenueListAdapter? = null
+    //private var adapter: VenueListAdapter? = null
+    private var userAdapter: UsersAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,41 +27,24 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        adapter = VenueListAdapter(this)
+        userAdapter= UsersAdapter(this)
         viewModel = ViewModelProvider(this).get(VenueViewModel::class.java)
 
         //link recyclerview
         binding.rvVenue.layoutManager = LinearLayoutManager(this)
-        binding.rvVenue.adapter = adapter
+        binding.rvVenue.adapter = userAdapter
 
-
-        binding.etSearch.addTextChangedListener(object : TextWatcher {
-
-            override fun afterTextChanged(s: Editable) {
-                val userInput = s.toString()
-                if(userInput.length >4)
-                 viewModel.getVenueList(userInput)
-            }
-
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int,
-                                       before: Int, count: Int) {
-            }
-        })
-
-
+        // user list api calling
+        viewModel.getUserList()
 
         // viewModel observer
-        viewModel.venueListLiveData?.observe(this) { response ->
+        viewModel.usersListLiveData?.observe(this) { response ->
             print("response: $response")
             if (response != null) {
-                // need to check
-                adapter!!.setResults(response as List<Any>)
+                userAdapter!!.setResults(response.items)
             }
+
         }
-        //
+
     }
 }
