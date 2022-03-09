@@ -20,10 +20,10 @@ interface ApiService {
     fun getDetails(@Path("id") venueId: String): Call<Any>
 
     @GET("2.3/users")
-    fun getUserList(
+    suspend fun getUserList(
         @Query("pagesize") pageSize: Int?,
         @Query("order") order: String?,
         @Query("sort") sort: String?,
         @Query("site") site: String
-    ): Call<ApiResponse>
+    ): ApiResponse
 }

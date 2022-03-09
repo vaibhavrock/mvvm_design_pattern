@@ -1,18 +1,22 @@
 package com.example.mvvm_design_pattern.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.mvvm_design_pattern.model.ApiResponse
 import com.example.mvvm_design_pattern.repository.VenueRepository
+import kotlinx.coroutines.launch
 
 class VenueViewModel(application: Application): AndroidViewModel(application) {
 
-    var venueListLiveData: LiveData<Any>?  = null
-    var venueDetailsLiveData: LiveData<Any>?  = null
+    var venueListLiveData: MutableLiveData<Any>?  = null
+    var venueDetailsLiveData: MutableLiveData<Any>?  = null
     private var userRepository: VenueRepository? = null
-    var usersListLiveData:LiveData<ApiResponse>?  = null
 
+    var usersListLiveData:MutableLiveData<ApiResponse?>?  = null
 
     init {
         userRepository  = VenueRepository()
@@ -23,15 +27,30 @@ class VenueViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun getVenueList(near:String) {
-        userRepository?.callVenueListAPI(near)
+        viewModelScope.launch {
+            userRepository?.callVenueListAPI(near)
+        }
+
     }
 
     fun getVenueDetails(id:String) {
-        userRepository?.callVenueDetailsAPI(id)
+        viewModelScope.launch {
+            userRepository?.callVenueDetailsAPI(id)
+        }
+
     }
 
     fun getUserList() {
-        userRepository?.callUserListAPI()
+        viewModelScope.launch {
+            userRepository?.callUserListAPI()?.let {
+                //print("API response $it")
+                usersListLiveData?.postValue(it)
+            } ?: run {
+                usersListLiveData?.postValue(null)
+            }
+
+        }
+
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.mvvm_design_pattern.view.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,12 +35,17 @@ class MainActivity : AppCompatActivity() {
         binding.rvVenue.layoutManager = LinearLayoutManager(this)
         binding.rvVenue.adapter = userAdapter
 
+        // visible progressbar
+        binding.pbMain.visibility = View.VISIBLE
         // user list api calling
         viewModel.getUserList()
 
         // viewModel observer
         viewModel.usersListLiveData?.observe(this) { response ->
-            print("response: $response")
+            //print("response: $response")
+            // hide progress bar
+            binding.pbMain.visibility = View.GONE
+
             if (response != null) {
                 userAdapter!!.setResults(response.items)
             }

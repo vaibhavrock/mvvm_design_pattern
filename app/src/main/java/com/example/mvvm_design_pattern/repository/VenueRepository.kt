@@ -9,7 +9,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class VenueRepository {
-    val userResponseLiveData: MutableLiveData<ApiResponse> = MutableLiveData()
+    val userResponseLiveData: MutableLiveData<ApiResponse?> = MutableLiveData()
     val venueListData: MutableLiveData<Any> = MutableLiveData()
     val venueDetailsData: MutableLiveData<Any> = MutableLiveData()
 
@@ -27,7 +27,7 @@ class VenueRepository {
 
                 override fun onFailure(call: Call<Any?>, t: Throwable) {
                     print("error:")
-                    venueListData.postValue(null)
+                    venueListData.postValue("Error Found!")
                 }
             })
     }
@@ -45,14 +45,19 @@ class VenueRepository {
 
                 override fun onFailure(call: Call<Any?>, t: Throwable) {
                     print("error:")
-                    venueDetailsData.postValue(null)
+                    venueDetailsData.postValue("Error Found!")
                 }
             })
 
     }
 
-    fun callUserListAPI(){
-        MyApplication.apiService.getUserList(20,"desc","reputation","stackoverflow")
+    suspend fun callUserListAPI(): ApiResponse {
+
+        return MyApplication.apiService.getUserList(20, "desc", "reputation", "stackoverflow")
+
+        //val data = MyApplication.apiService.getUserList(20,"desc","reputation","stackoverflow")
+
+        /* MyApplication.apiService.getUserList(20,"desc","reputation","stackoverflow")
             .enqueue(object : Callback<ApiResponse?>{
                 override fun onResponse(
                     call: Call<ApiResponse?>,
@@ -66,7 +71,7 @@ class VenueRepository {
                     //print("error:")
                     userResponseLiveData.postValue(null)
                 }
-            })
+            })*/
 
     }
 
