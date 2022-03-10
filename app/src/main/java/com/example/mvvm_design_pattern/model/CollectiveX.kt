@@ -1,5 +1,8 @@
 package com.example.mvvm_design_pattern.model
 
+import androidx.room.Entity
+
+@Entity(tableName = "collectiveX")
 data class CollectiveX(
     val description: String,
     val external_links: List<ExternalLink>,

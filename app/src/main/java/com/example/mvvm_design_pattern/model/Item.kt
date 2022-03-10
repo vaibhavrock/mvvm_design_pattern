@@ -1,5 +1,8 @@
 package com.example.mvvm_design_pattern.model
 
+import androidx.room.Entity
+
+@Entity(tableName = "item")
 data class Item(
     val accept_rate: Int,
     val account_id: Int,

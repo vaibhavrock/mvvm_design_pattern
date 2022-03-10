@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">mvvm_design_pattern</string>
+    <string name="api_order">desc</string>
+    <string name="api_reputation">reputation</string>
+    <string name="api_site">stackoverflow</string>
+
+    <string name="default_error">Something went wrong. Please try again later</string>
 </resources>

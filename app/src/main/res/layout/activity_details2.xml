@@ -60,7 +60,6 @@ xmlns:tools="http://schemas.android.com/tools">
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:labelFor="@id/tvAddressDetails"
                 android:text="Address"
                 android:textAppearance="?textAppearanceListItem"
                 android:textStyle="bold"
