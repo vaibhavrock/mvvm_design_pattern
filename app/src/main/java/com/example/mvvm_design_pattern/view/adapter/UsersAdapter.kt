@@ -14,7 +14,6 @@ import com.example.mvvm_design_pattern.view.ui.DetailActivity2
 class UsersAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var results: List<Item> = ArrayList()
-    private var customViewType = 0
 
     inner class UserViewHolder(val binding: AdapterUserItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -24,16 +23,7 @@ class UsersAdapter(var context: Context) : RecyclerView.Adapter<RecyclerView.Vie
         return UserViewHolder(bindingView)
     }
 
-    fun setViewType(type:Int){
-        this.customViewType = type
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return customViewType
-    }
-
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         with(results[position]) {
             val binding = (holder as UserViewHolder).binding
             binding.userNameTv.text = this.display_name

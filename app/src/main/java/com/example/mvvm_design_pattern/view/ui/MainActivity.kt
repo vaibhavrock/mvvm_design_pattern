@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: VenueViewModel
 
     //Adapter
-    //private var adapter: VenueListAdapter? = null
     private var userAdapter: UsersAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
