@@ -1,12 +1,15 @@
 package com.example.mvvm_design_pattern.model
 
+import androidx.room.Embedded
 import androidx.room.Entity
 
 @Entity(tableName = "item")
 data class Item(
     val accept_rate: Int,
     val account_id: Int,
+    @Embedded
     val badge_counts: BadgeCounts,
+    @Embedded
     val collectives: List<Collective>,
     val creation_date: Int,
     val display_name: String,
@@ -24,5 +27,5 @@ data class Item(
     val reputation_change_year: Int,
     val user_id: Int,
     val user_type: String,
-    val website_url: String
+    val website_url: String,
 )

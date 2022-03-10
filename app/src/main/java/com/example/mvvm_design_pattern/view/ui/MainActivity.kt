@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mvvm_design_pattern.database.UserDB
 import com.example.mvvm_design_pattern.databinding.ActivityMainBinding
 import com.example.mvvm_design_pattern.network.Resource
 import com.example.mvvm_design_pattern.repository.UserRepository
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         userAdapter= UsersAdapter(this)
-        viewModel = ViewModelProvider(this,MyViewModelFactory(this.application, UserRepository()))[UserViewModel::class.java]
+        viewModel = ViewModelProvider(this,MyViewModelFactory(this.application, UserRepository(UserDB(this))))[UserViewModel::class.java]
 
         //link recyclerview
         binding.rvVenue.layoutManager = LinearLayoutManager(this)
@@ -44,6 +45,9 @@ class MainActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     binding.pbMain.visibility = View.GONE
                     userAdapter!!.setResults(it.data.items)
+
+                    // save data in database
+                    viewModel.saveDataToDb(it.data)
                 }
                 is Resource.Error -> {
                     binding.pbMain.visibility = View.GONE

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mvvm_design_pattern.R
+import com.example.mvvm_design_pattern.model.ApiResponse
 import com.example.mvvm_design_pattern.network.Resource
 import com.example.mvvm_design_pattern.repository.UserRepository
 import kotlinx.coroutines.delay
@@ -43,10 +44,26 @@ class UserViewModel(
             try {
                 _usersListLiveData.value = Resource.Success(userRepository.callUserListAPI(pageSize,getAPIOrder(),getAPISort(),getAPISite()))
             } catch (e: Exception) {
-                _usersListLiveData.value = Resource.Error(e.message ?: getDefaultError())
+                // error case check database
+                //_usersListLiveData.value = Resource.Error(e.message ?: getDefaultError())
+
+                // getting data from database
+                userRepository.getDataFromDb().let {
+                    if (it != null) {
+                        _usersListLiveData.postValue(Resource.Success(it))
+                    } else {
+                        _usersListLiveData.postValue(Resource.Error(e.message ?: getDefaultError()))
+                    }
+                }
             }
         }
 
+    }
+
+    fun saveDataToDb(data: ApiResponse) {
+        viewModelScope.launch{
+            userRepository.saveData(data)
+        }
     }
 
 }
