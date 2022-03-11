@@ -48,16 +48,20 @@ class UserViewModel(
                 //_usersListLiveData.value = Resource.Error(e.message ?: getDefaultError())
 
                 // getting data from database
-                userRepository.getDataFromDb().let {
-                    if (it != null) {
-                        _usersListLiveData.postValue(Resource.Success(it))
-                    } else {
-                        _usersListLiveData.postValue(Resource.Error(e.message ?: getDefaultError()))
-                    }
-                }
+                gettingDataFromDatabase(e)
             }
         }
 
+    }
+
+    suspend fun gettingDataFromDatabase(e: Exception) {
+        userRepository.getDataFromDb().let {
+            if (it != null) {
+                _usersListLiveData.postValue(Resource.Success(it))
+            } else {
+                _usersListLiveData.postValue(Resource.Error(e.message ?: getDefaultError()))
+            }
+        }
     }
 
     fun saveDataToDb(data: ApiResponse) {
@@ -65,5 +69,7 @@ class UserViewModel(
             userRepository.saveData(data)
         }
     }
+
+
 
 }
